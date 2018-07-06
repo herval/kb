@@ -1,7 +1,7 @@
 # kb
 ## An opinionated zero-config compiler for Kotlin & Java
 
-kb follows the design philosophy behind compiler toolchains from modern languages such as Rust, Swift and Golang. Java (and other JVM languages) have always been plagued by bulky, complex and multi-stage compiling processes.
+kb follows the design philosophy behind compiler toolchains from modern languages such as Rust, Swift and Golang. Java (and other JVM languages) have always been plagued by bulky, complex and multi-stage compiling processes. kb lets you focus on your code alone, and provides all the tooling to build libraries, "fat jar" binaries, run tests and manage your dependencies.
 
 Behind the scenes, kb essentially build and maintains a set of Gradle configurations for you.
 
@@ -13,8 +13,15 @@ Every kb project requires code to be put on specific folder structures:
 `project.yaml` - the (optional) config file where you define project dependencies, plugins, etc
 `src/main/<java, kotlin, resources>` - the folders where source must be located. Everything under resources will automatically be bundled.
 `src/test/<java, kotlin, resources>` - the folders where tests must be located. Everything under resources will automatically be included on test runs.
+`out` - the output folder for compiled binariesd
 
 ## Commands
+
+### `kb init`
+Creates the default folder structure and an empty `project.yaml` on the current folder.
+
+Arguments:
+  `--language` - specify which languages the project contain. This will create a separate source folder per language specified. Supported values: java, kotlin
 
 ### `kb build`
 Build a binary containing all sources on your project, and puts it (along with all dependency jars) on an `out` folder.
@@ -61,6 +68,9 @@ dependencies:
   - "org.apache.commons:commons-math3:4.0"
   - "../other-project"
 
+testDependencies:
+  - "org.junit:junit:4.1"
+
 main-class: "foo.bar.Main"
 
 jvm-args: "-server -Xms2G"
@@ -75,5 +85,6 @@ The format of dependencies follow Gradle's convention of `<group>:<project>:<ver
 
 You can also specify _source dependencies_ by pointing to folders that either follow the kb structure or contain a `project.yaml` file.
 
-## Submodules
+## Why can't I...
 There are no submodules. You can use source dependencies to have multiple projects in the same folder structure.
+There are no "runtime dependencies". Bundle your JDBC drivers.
