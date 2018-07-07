@@ -60,6 +60,8 @@ Run all tests on the test path. The following commands are available:
 This is how you specify project dependencies, override default behaviors, include plugins, etc. The structure of a fully-loaded `project.yaml` file looks like the following:
 
 ```
+version: "1.0.0"
+
 repositories:
   - "http://myserver/repo" 
 
@@ -88,3 +90,11 @@ You can also specify _source dependencies_ by pointing to folders that either fo
 ## Why can't I...
 There are no submodules. You can use source dependencies to have multiple projects in the same folder structure.
 There are no "runtime dependencies". Bundle your JDBC drivers.
+
+## Building kb
+
+kb itself is built using Gradle (I know, I know! It'll be built using kb itself, eventually). To build a distribution:
+
+```
+gradle shadowJar
+```

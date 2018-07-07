@@ -1,23 +1,27 @@
 # This is a basic project.yaml config. You can add your own configs by editing
-# it below.
-# By default, you can simply keep this file as-is: no configuration at all is needed for a basic project :-)
-# Some possible options you can use:
-#
-#
-#repositories:
-#  - "https://repo.maven.apache.org/maven2/"
-#
+# it below. Lines starting with # are commented out and shown as examples only.
+# By default, you can simply keep this file as-is: no additional configuration at all is needed for a basic project :-)
+
+version: 1.0.0-SNAPSHOT
+
+repositories:
+  - https://repo.maven.apache.org/maven2/
+
+languages:
+  - java
+  - kotlin
+
 #dependencies:
 #  - "org.kb:example:1.0"
 #  - "../other-project"
-#
-#testDependencies:
-#  - "org.junit:junit:4.1"
-#
+
+test-dependencies:
+  - "org.junit:junit:4.1"
+
 #main-class: "com.example.Main"
-#
+
 #jvm-args: "-server -Xms2G"
-#
+
 #app-args: "-foo=these-are-passed-to-your-app-on-kb-run"
-#
+
 #output-name: "custom-jar-name"

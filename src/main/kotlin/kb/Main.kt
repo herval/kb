@@ -1,6 +1,7 @@
 package kb
 
 import com.xenomachina.argparser.InvalidArgumentException
+import kb.command.GenerateBuildFiles
 import kb.command.Help
 import kb.command.InitProject
 import kb.config.ProjectConfig
@@ -9,24 +10,25 @@ import kb.config.ProjectFileName
 // the kb starts here
 fun main(args: Array<String>) {
     val params = ArgsParser(args)
-    val projectConfig by lazy {
-        ProjectConfig.parseOrDefault(params, ProjectFileName)
-    }
-
     try {
         when (params.command) {
-            Command.Init ->
-                InitProject(params.projectPath, params.languages).run()
-            Command.Build ->
-                println("Build")
-            Command.Deps ->
-                println("Deps")
-            Command.Help ->
-                Help(params).print()
-            Command.Run ->
-                println("Run")
-            Command.Test ->
-                Help(params).print()
+            Command.Init -> InitProject(params).run()
+            Command.Help -> Help(params).print()
+            else -> {
+                // resync build file for those
+                val projectConfig = ProjectConfig.parseWithOverrides(
+                        params,
+                        ProjectFileName
+                )
+                GenerateBuildFiles(projectConfig).run()
+
+                when (params.command) {
+                    Command.Build -> TODO()
+                    Command.Deps -> TODO()
+                    Command.Run -> TODO()
+                    Command.Test -> TODO()
+                }
+            }
         }
     } catch (e: InvalidArgumentException) {
         println(e.message)

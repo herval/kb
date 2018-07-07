@@ -1,24 +1,34 @@
 package kb.command
 
-import kb.Language
+import kb.ArgsParser
+import kb.config.DefaultLanguages
+import kb.config.sourcePaths
+import kb.config.testPaths
 import java.io.File
 
-class InitProject(val rootPath: String, val languages: List<Language>) {
+class InitProject(val params: ArgsParser) {
+    private val languages = if (params.languages.isNotEmpty()) {
+        params.languages
+    } else {
+        DefaultLanguages
+    }
+
     private val defaultPaths = listOf(
             "src/main/resources",
             "src/test/resources",
             "out"
-    ) + languages.map { "src/main/${it.name.toLowerCase()}" }
+    ) + sourcePaths(languages) + testPaths(languages)
 
     fun run() {
-        println("Initializing project structure on ${rootPath}")
+        println("Initializing project structure on ${params.rootPath}")
         makeSrc()
         makeProjectFile()
+
         println("🙌 Project tree initialized! Happy hacking! 🚀")
     }
 
     private fun makeProjectFile() {
-        val projectFile = File(rootPath, "project.yaml")
+        val projectFile = File(params.rootPath, "project.yaml")
         if (projectFile.exists()) {
             println("project.yaml already exists, skipping...")
         } else {
@@ -30,7 +40,7 @@ class InitProject(val rootPath: String, val languages: List<Language>) {
 
     private fun makeSrc() {
         defaultPaths.forEach {
-            val fullPath = File(rootPath, it)
+            val fullPath = File(params.rootPath, it)
             if (fullPath.mkdirs()) {
                 println("${fullPath.absolutePath} created!")
             } else {
