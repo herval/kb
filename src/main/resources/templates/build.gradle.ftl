@@ -12,6 +12,37 @@ apply plugin: 'kotlin'
 </#list>
 
 
+buildscript {
+    ext.kotlin_version = '1.2.51'
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+<#list languages as language>
+    <#if language == 'kotlin'>
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+    </#if>
+</#list>
+
+
 <#if mainClass??>
 apply plugin: 'application'
 mainClassName = "${mainClass}"

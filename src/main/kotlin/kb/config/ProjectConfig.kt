@@ -26,6 +26,7 @@ data class ProjectConfigFile(
         @JsonProperty("output-name") val outputName: String? = null
 )
 
+// all the configs, including command line overrides
 data class ProjectConfig(
         val dependencies: List<String>,
         val repositories: List<String>,
@@ -51,8 +52,6 @@ data class ProjectConfig(
             } else {
                 throw IllegalStateException("Project file not found - run 'kb init' to start")
             }
-
-            println(conf)
 
             val languages = nonEmpty(conf.languages, params.languages)
 

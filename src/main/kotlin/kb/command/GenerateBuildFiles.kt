@@ -14,8 +14,7 @@ class GenerateBuildFiles(val config: ProjectConfig) {
     }
 
     fun run() {
-        println("Refreshing build config files...")
-
+//        println("Refreshing build config files...")
         // TODO add .gradle files to .gitignore if there is one
 
         val template = cfg.getTemplate("build.gradle.ftl")
@@ -26,10 +25,9 @@ class GenerateBuildFiles(val config: ProjectConfig) {
                 "dependencies" to config.dependencies,
                 "sourcePaths" to config.sourcePaths,
                 "testPaths" to config.testPaths,
-                "jvmArgs" to config.jvmArgs,
+                "jvmArgs" to config.jvmArgs?.split(" ")?.map { "\"${it}\"" }?.joinToString(", "), // TODO do this concatenation on the freemarker code instead
                 "mainClass" to config.mainClass
         )
-
 
         val fileWriter = FileWriter(File(config.rootPath, "build.gradle"))
         try {

@@ -7,3 +7,6 @@ gradle/wrapper/gradle-wrapper.properties
 gradlew
 gradlew.bat
 .DS_Store
+example/build.gradle
+example/gradle/wrapper/gradle-wrapper.jar
+example/gradle/wrapper/gradle-wrapper.properties

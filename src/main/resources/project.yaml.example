@@ -2,6 +2,8 @@
 # it below. Lines starting with # are commented out and shown as examples only.
 # By default, you can simply keep this file as-is: no additional configuration at all is needed for a basic project :-)
 
+group: kb
+artifact: example
 version: 1.0.0-SNAPSHOT
 
 repositories:
@@ -12,11 +14,12 @@ languages:
   - kotlin
 
 dependencies:
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.51
 #  - "org.kb:example:1.0"
 #  - "../other-project"
 
 test-dependencies:
-  - "org.junit:junit:4.1"
+  - "junit:junit:4.12"
 
 # define this if you want to build a binary/executable jar
 #main-class: "com.example.Main"

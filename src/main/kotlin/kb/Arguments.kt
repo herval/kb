@@ -12,6 +12,7 @@ enum class Command { Init, Run, Build, Test, Deps, Help }
 val commands = mapOf(
         "init" to Command.Init,
         "run" to Command.Run,
+        "build" to Command.Build,
         "test" to Command.Test,
         "deps" to Command.Deps,
         "help" to Command.Help

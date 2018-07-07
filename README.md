@@ -22,21 +22,22 @@ Creates the default folder structure and a `project.yaml` config file on the cur
 
 Arguments:
   `--language` - specify which languages the project contain. This will create a separate source folder per language specified. Supported values: java, kotlin
+  `--main-class` - specify the main class of the project. Omit if you're building a library or jar without a main class. You can also define this via the `project.yaml` file.
+
 
 ### `kb build`
 Build a binary containing all sources on your project, and puts it (along with all dependency jars) on an `out` folder.
 
 Arguments:
-  `--main-class` - specify the main class of the project. Omit if you're building a library or jar without a main class. You can also define this via the `project.yaml` file.
   `--fatjar` - build a fatjar. This will include all the dependencies in a single jar file. Ideal for distributing a binary with no external dependencies.
   `--binary` - build a native binary. This requires GraalVM to be installed.
+  `--jar` - build a regular jar, with or without a main class (as per the `project.yaml` config.
 
 
 ### `kb run`
 Compiles and runs the main class of the project.
 
 Arguments:
-  `--binary`
   `--app-args` - pass down parameters to the app as-is. Eg.: `--app-args "-foo=true -bar=false"`
   `--jvm-args` - pass down these arguments to the JVM. Eg.: `--jvm-args "-server -Xms2G"`
 
@@ -44,9 +45,9 @@ Arguments:
 ### `kb deps`
 Manages dependencies. The following commands are available:
 
-  `list` - list all current project dependencies
-  `add` - add a dependency. 
-  `upgrade <group>:<project>` - upgrade a dependency to the latest available release
+  `--list` - list all current project dependencies
+  `--add` - add a dependency.
+  `--upgrade <group>:<project>` - upgrade a dependency to the latest available release
 
 
 ### `kb test`
