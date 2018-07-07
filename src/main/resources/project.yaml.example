@@ -11,17 +11,14 @@ languages:
   - java
   - kotlin
 
-#dependencies:
+dependencies:
 #  - "org.kb:example:1.0"
 #  - "../other-project"
 
 test-dependencies:
   - "org.junit:junit:4.1"
 
+# define this if you want to build a binary/executable jar
 #main-class: "com.example.Main"
-
-#jvm-args: "-server -Xms2G"
-
-#app-args: "-foo=these-are-passed-to-your-app-on-kb-run"
 
 #output-name: "custom-jar-name"

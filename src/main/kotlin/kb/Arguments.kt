@@ -38,6 +38,11 @@ class ArgsParser(args: Array<String>) {
             help = "Args to be supplied to the JVM"
     ).default("")
 
+    val version by parser.storing(
+            "--version",
+            help = "The application/lib version"
+    )
+
     val mainClass by parser.storing(
             "--main-class",
             help = "Fully qualified name of the main class"
@@ -53,7 +58,7 @@ class ArgsParser(args: Array<String>) {
             help = "Specify the programming languages used in the project. Supported values: ${Language.values().map { it.name.toLowerCase() }.joinToString(", ")}",
             transform = {
                 try {
-                    Language.valueOf(this)
+                    Language.valueOf(this).name
                 } catch (e: IllegalArgumentException) {
                     throw InvalidArgumentException("Language not supported: ${this}")
                 }

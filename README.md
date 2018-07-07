@@ -18,7 +18,7 @@ Every kb project requires code to be put on specific folder structures:
 ## Commands
 
 ### `kb init`
-Creates the default folder structure and an empty `project.yaml` on the current folder.
+Creates the default folder structure and a `project.yaml` config file on the current folder or the folder specified by the `--root-path` param.
 
 Arguments:
   `--language` - specify which languages the project contain. This will create a separate source folder per language specified. Supported values: java, kotlin
@@ -27,8 +27,9 @@ Arguments:
 Build a binary containing all sources on your project, and puts it (along with all dependency jars) on an `out` folder.
 
 Arguments:
-  `--jar` - build a Jar. kb will locate the main class automatically - if there's more than one, you need to specify which one you want to use by using the `--main-class` param or via the `project.yaml` file.
-  `--main-class` - specify the main class of the project. Optional if you have a single main class, or if you're building a library
+  `--main-class` - specify the main class of the project. Omit if you're building a library or jar without a main class. You can also define this via the `project.yaml` file.
+  `--fatjar` - build a fatjar. This will include all the dependencies in a single jar file. Ideal for distributing a binary with no external dependencies.
+  `--binary` - build a native binary. This requires GraalVM to be installed.
 
 
 ### `kb run`
@@ -37,8 +38,8 @@ Compiles and runs the main class of the project.
 Arguments:
   `--binary`
   `--main-class`
-  `--app-args`
-  `--jvm-args`
+  `--app-args` - pass down parameters to the app as-is. Eg.: `--app-args "-foo=true -bar=false"`
+  `--jvm-args` - pass down these arguments to the JVM. Eg.: `--jvm-args "-server -Xms2G"`
 
 
 ### `kb deps`
@@ -75,10 +76,6 @@ testDependencies:
 
 main-class: "foo.bar.Main"
 
-jvm-args: "-server -Xms2G"
-
-app-args: "-foo=true -bar=false"
-
 output-name: "custom-jar-name"
 ```
 
@@ -91,8 +88,8 @@ You can also specify _source dependencies_ by pointing to folders that either fo
 There are no submodules. You can use source dependencies to have multiple projects in the same folder structure.
 There are no "runtime dependencies". Bundle your JDBC drivers.
 
-## Building kb
 
+## Building kb
 kb itself is built using Gradle (I know, I know! It'll be built using kb itself, eventually). To build a distribution:
 
 ```

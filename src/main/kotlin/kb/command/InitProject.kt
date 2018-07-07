@@ -28,6 +28,7 @@ class InitProject(val params: ArgsParser) {
     }
 
     private fun makeProjectFile() {
+        // TODO build from template
         val projectFile = File(params.rootPath, "project.yaml")
         if (projectFile.exists()) {
             println("project.yaml already exists, skipping...")

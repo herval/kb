@@ -7,6 +7,7 @@ import kb.command.Help
 import kb.command.InitProject
 import kb.config.ProjectConfig
 import kb.config.ProjectFileName
+import kb.config.YamlParser
 
 // the kb starts here
 fun main(args: Array<String>) {
@@ -19,7 +20,8 @@ fun main(args: Array<String>) {
                 // resync build file for those
                 val projectConfig = ProjectConfig.parseWithOverrides(
                         params,
-                        ProjectFileName
+                        ProjectFileName,
+                        YamlParser()
                 )
                 GenerateBuildFiles(projectConfig).run()
 

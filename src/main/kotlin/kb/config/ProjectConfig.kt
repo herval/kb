@@ -18,64 +18,71 @@ data class Dependency(
 
 val ProjectFileName = "project.yaml"
 
-data class ProjectConfig(
+// all attributes configurable via a project.yaml file
+data class ProjectConfigFile(
         val dependencies: List<Dependency>?,
         val repositories: List<String>?,
         val version: String?,
-        val sourcePaths: List<String>?,
-        val testPaths: List<String>?,
-        val languages: List<Language>,
-        val rootPath: String?,
+        val languages: List<String>?,
         @JsonProperty("test-dependencies") val testDependencies: List<String>?,
         @JsonProperty("main-class") val mainClass: String? = null,
-        @JsonProperty("jvm-args") val jvmArgs: String? = null,
-        @JsonProperty("app-args") val appArgs: String? = null,
         @JsonProperty("output-name") val outputName: String? = null
+)
+
+data class ProjectConfig(
+        val dependencies: List<Dependency>,
+        val repositories: List<String>,
+        val version: String,
+        val testDependencies: List<String>,
+        val mainClass: String?,
+        val outputName: String,
+        val sourcePaths: List<String>,
+        val testPaths: List<String>,
+        val languages: List<String>,
+        val rootPath: String,
+        val jvmArgs: String? = null,
+        val appArgs: String? = null
 ) {
     companion object {
         // parse the project.yaml file and override configs passed as param
-        fun parseWithOverrides(params: ArgsParser, projectFilePath: String): ProjectConfig {
+        fun parseWithOverrides(params: ArgsParser, projectFilePath: String, parser: YamlParser): ProjectConfig {
             val f = File(params.rootPath, projectFilePath)
             val conf = if (f.exists()) {
                 val projectFile = f.toPath()
 
-                val mapper = ObjectMapper(YAMLFactory())
-                mapper.registerModule(KotlinModule())
-                // TODO support empty config
-                mapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true)
-
-                Files.newBufferedReader(projectFile).use {
-                    mapper.readValue(it, ProjectConfig::class.java)
-                }
+                parser.load(projectFile, ProjectConfigFile::class.java)
             } else {
                 throw IllegalStateException("Project file not found - run 'kb init' to start")
             }
 
             println(conf)
 
+            val languages = nonEmpty(conf.languages, params.languages)
+
             // override config with params and/or set defaults
-            return conf.copy(
-                    // making sure there's no nils
+            return ProjectConfig(
+                    // making sure there's no nulls
                     dependencies = conf.dependencies ?: emptyList(),
                     testDependencies = conf.testDependencies ?: emptyList(),
                     repositories = conf.repositories ?: emptyList(),
 
                     // override some if a param is supplied
-                    languages = nonEmpty(conf.languages, params.languages),
-                    jvmArgs = nonEmptyOrElse(params.jvmArgs, conf.jvmArgs),
+                    languages = languages,
                     mainClass = nonEmptyOrElse(params.mainClass, conf.mainClass),
-                    outputName = nonEmptyOrElse(params.outputName, conf.outputName),
-                    appArgs = nonEmptyOrElse(params.appArgs, conf.appArgs),
+                    outputName = nonEmptyOrElse(params.outputName, conf.outputName) ?: "main",
 
                     // cannot override those via config, sorry!
+                    jvmArgs = params.jvmArgs,
+                    appArgs = params.appArgs,
                     rootPath = params.rootPath,
-                    sourcePaths = sourcePaths(conf.languages),
-                    testPaths = testPaths(conf.languages)
+                    sourcePaths = sourcePaths(languages),
+                    testPaths = testPaths(languages),
+                    version = conf.version ?: params.version
             )
         }
 
-        private fun <T> nonEmpty(list1: List<T>, fallback: List<T>): List<T> {
-            return if (list1.isEmpty()) {
+        private fun <T> nonEmpty(list1: List<T>?, fallback: List<T>): List<T> {
+            return if (list1 == null || list1.isEmpty()) {
                 fallback
             } else {
                 list1
@@ -83,7 +90,7 @@ data class ProjectConfig(
         }
 
         private fun nonEmptyOrElse(value: String, default: String?): String? {
-            return if (value != "") {
+            return if (value.isNotBlank()) {
                 value
             } else {
                 default

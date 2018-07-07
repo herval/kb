@@ -16,9 +16,11 @@ class GenerateBuildFiles(val config: ProjectConfig) {
     fun run() {
         println("Refreshing build config files...")
 
+        // TODO add .gradle files to .gitignore if there is one
+
         val template = cfg.getTemplate("build.gradle.ftl")
         val params = mapOf(
-                "languages" to config.languages.map { it.name.toLowerCase() },
+                "languages" to config.languages.map { it.toLowerCase() },
                 "repositories" to config.repositories,
                 "testDependencies" to config.testDependencies,
                 "dependencies" to config.dependencies,

@@ -6,15 +6,15 @@ enum class Language {
     kotlin
 }
 
-fun sourcePaths(languages: List<Language>): List<String> {
-    return languages.map { "src/main/${it.name.toLowerCase()}" }
+fun sourcePaths(languages: List<String>): List<String> {
+    return languages.map { "src/main/${it.toLowerCase()}" }
 }
 
-fun testPaths(languages: List<Language>): List<String> {
-    return languages.map { "src/test/${it.name.toLowerCase()}" }
+fun testPaths(languages: List<String>): List<String> {
+    return languages.map { "src/test/${it.toLowerCase()}" }
 }
 
 val DefaultLanguages = listOf(
-        Language.java,
-        Language.kotlin
+        Language.java.name,
+        Language.kotlin.name
 )
