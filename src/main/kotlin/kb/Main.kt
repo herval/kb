@@ -1,6 +1,7 @@
 package kb
 
 import com.xenomachina.argparser.InvalidArgumentException
+import com.xenomachina.argparser.MissingRequiredPositionalArgumentException
 import kb.command.GenerateBuildFiles
 import kb.command.Help
 import kb.command.InitProject
@@ -30,6 +31,8 @@ fun main(args: Array<String>) {
                 }
             }
         }
+    } catch (e: MissingRequiredPositionalArgumentException) {
+        println(e.message)
     } catch (e: InvalidArgumentException) {
         println(e.message)
     }
