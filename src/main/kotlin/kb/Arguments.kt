@@ -39,19 +39,9 @@ class ArgsParser(args: Array<String>) {
             help = "Args to be supplied to the JVM"
     ).default("")
 
-    val version by parser.storing(
-            "--version",
-            help = "The application/lib version"
-    ).default("0.0.0")
-
     val mainClass by parser.storing(
             "--main-class",
             help = "Fully qualified name of the main class"
-    ).default("")
-
-    val outputName by parser.storing(
-            "--output-name",
-            help = "Name of the output compiled object"
     ).default("")
 
     val languages by parser.adding(

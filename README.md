@@ -61,7 +61,9 @@ Run all tests on the test path. The following commands are available:
 This is how you specify project dependencies, override default behaviors, include plugins, etc. The structure of a fully-loaded `project.yaml` file looks like the following:
 
 ```
-version: "1.0.0"
+group: foo
+artifact: bar
+version: 1.0.0
 
 repositories:
   - "http://myserver/repo" 
@@ -75,12 +77,10 @@ testDependencies:
   - "org.junit:junit:4.1"
 
 main-class: "foo.bar.Main"
-
-output-name: "custom-jar-name"
 ```
 
 ## Specifying dependencies
-The format of dependencies follow Gradle's convention of `<group>:<project>:<version>`
+The format of dependencies follow Gradle's convention of `<group>:<artifact>:<version>`
 
 You can also specify _source dependencies_ by pointing to folders that either follow the kb structure or contain a `project.yaml` file.
 

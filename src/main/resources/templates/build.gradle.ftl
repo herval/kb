@@ -43,8 +43,17 @@ compileTestKotlin {
 </#list>
 
 
-<#if mainClass??>
+<#if group??>
+group = '${group}'
+</#if>
+
+<#if version??>
+version = '${version}'
+</#if>
+
 apply plugin: 'application'
+
+<#if mainClass??>
 mainClassName = "${mainClass}"
 </#if>
 

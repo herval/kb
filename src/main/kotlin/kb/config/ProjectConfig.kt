@@ -17,23 +17,25 @@ val ProjectFileName = "project.yaml"
 data class ProjectConfigFile(
         val dependencies: List<String>?,
         val repositories: List<String>?,
+        val artifact: String?,
+        val group: String?,
         val version: String?,
         val languages: List<String>?,
         @JsonProperty("run-jvm-args") val jvmArgs: String? = null,
         @JsonProperty("run-app-args") val appArgs: String? = null,
         @JsonProperty("test-dependencies") val testDependencies: List<String>?,
-        @JsonProperty("main-class") val mainClass: String? = null,
-        @JsonProperty("output-name") val outputName: String? = null
+        @JsonProperty("main-class") val mainClass: String? = null
 )
 
 // all the configs, including command line overrides
 data class ProjectConfig(
         val dependencies: List<String>,
         val repositories: List<String>,
-        val version: String,
+        val artifact: String?,
+        val group: String?,
+        val version: String?,
         val testDependencies: List<String>,
         val mainClass: String?,
-        val outputName: String,
         val sourcePaths: List<String>,
         val testPaths: List<String>,
         val languages: List<String>,
@@ -65,7 +67,6 @@ data class ProjectConfig(
                     // override some if a param is supplied
                     languages = languages,
                     mainClass = nonEmptyOrElse(params.mainClass, conf.mainClass),
-                    outputName = nonEmptyOrElse(params.outputName, conf.outputName) ?: "main",
                     jvmArgs = nonEmptyOrElse(params.jvmArgs, conf.jvmArgs),
                     appArgs = nonEmptyOrElse(params.appArgs, conf.appArgs),
 
@@ -73,7 +74,9 @@ data class ProjectConfig(
                     rootPath = params.rootPath,
                     sourcePaths = sourcePaths(languages),
                     testPaths = testPaths(languages),
-                    version = conf.version ?: params.version
+                    version = conf.version,
+                    artifact = conf.artifact,
+                    group = conf.group
             )
         }
 

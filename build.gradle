@@ -16,6 +16,8 @@ buildscript {
     }
 }
 
+group = "us.hervalicio"
+version = "1.0.0-SNAPSHOT"
 mainClassName = "kb.MainKt"
 
 repositories {

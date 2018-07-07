@@ -3,7 +3,7 @@
 # By default, you can simply keep this file as-is: no additional configuration at all is needed for a basic project :-)
 
 group: kb
-artifact: example
+artifact: your-app-name-here
 version: 1.0.0-SNAPSHOT
 
 repositories:
@@ -23,8 +23,6 @@ test-dependencies:
 
 # define this if you want to build a binary/executable jar
 #main-class: "com.example.Main"
-
-#output-name: "custom-jar-name"
 
 # these are used exclusively by kb run
 #run-jvm-args: "-server -Xms2G"
