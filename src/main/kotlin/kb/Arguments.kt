@@ -41,7 +41,7 @@ class ArgsParser(args: Array<String>) {
     val version by parser.storing(
             "--version",
             help = "The application/lib version"
-    )
+    ).default("0.0.0")
 
     val mainClass by parser.storing(
             "--main-class",

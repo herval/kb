@@ -1,13 +1,8 @@
 package kb.config
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import kb.ArgsParser
 import java.io.File
-import java.nio.file.Files
 
 
 data class Dependency(
@@ -20,17 +15,19 @@ val ProjectFileName = "project.yaml"
 
 // all attributes configurable via a project.yaml file
 data class ProjectConfigFile(
-        val dependencies: List<Dependency>?,
+        val dependencies: List<String>?,
         val repositories: List<String>?,
         val version: String?,
         val languages: List<String>?,
+        @JsonProperty("run-jvm-args") val jvmArgs: String? = null,
+        @JsonProperty("run-app-args") val appArgs: String? = null,
         @JsonProperty("test-dependencies") val testDependencies: List<String>?,
         @JsonProperty("main-class") val mainClass: String? = null,
         @JsonProperty("output-name") val outputName: String? = null
 )
 
 data class ProjectConfig(
-        val dependencies: List<Dependency>,
+        val dependencies: List<String>,
         val repositories: List<String>,
         val version: String,
         val testDependencies: List<String>,
@@ -70,10 +67,10 @@ data class ProjectConfig(
                     languages = languages,
                     mainClass = nonEmptyOrElse(params.mainClass, conf.mainClass),
                     outputName = nonEmptyOrElse(params.outputName, conf.outputName) ?: "main",
+                    jvmArgs = nonEmptyOrElse(params.jvmArgs, conf.jvmArgs),
+                    appArgs = nonEmptyOrElse(params.appArgs, conf.appArgs),
 
                     // cannot override those via config, sorry!
-                    jvmArgs = params.jvmArgs,
-                    appArgs = params.appArgs,
                     rootPath = params.rootPath,
                     sourcePaths = sourcePaths(languages),
                     testPaths = testPaths(languages),

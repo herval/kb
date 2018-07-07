@@ -22,3 +22,7 @@ test-dependencies:
 #main-class: "com.example.Main"
 
 #output-name: "custom-jar-name"
+
+# these are used exclusively by kb run
+#run-jvm-args: "-server -Xms2G"
+#run-app-args: "-foo=these-are-passed-to-your-app-on-kb-run"

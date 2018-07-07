@@ -25,7 +25,9 @@ class GenerateBuildFiles(val config: ProjectConfig) {
                 "testDependencies" to config.testDependencies,
                 "dependencies" to config.dependencies,
                 "sourcePaths" to config.sourcePaths,
-                "testPaths" to config.testPaths
+                "testPaths" to config.testPaths,
+                "jvmArgs" to config.jvmArgs,
+                "mainClass" to config.mainClass
         )
 
 

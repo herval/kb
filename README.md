@@ -37,7 +37,6 @@ Compiles and runs the main class of the project.
 
 Arguments:
   `--binary`
-  `--main-class`
   `--app-args` - pass down parameters to the app as-is. Eg.: `--app-args "-foo=true -bar=false"`
   `--jvm-args` - pass down these arguments to the JVM. Eg.: `--jvm-args "-server -Xms2G"`
 
