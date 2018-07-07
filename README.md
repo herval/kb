@@ -1,14 +1,16 @@
 # kb
-## An opinionated zero-config compiler for Kotlin & Java
+## An opinionated low-config compiler for Kotlin & Java
 
-kb follows the design philosophy behind compiler toolchains from modern languages such as Rust, Swift and Golang. Java (and other JVM languages) have always been plagued by bulky, complex and multi-stage compiling processes. kb lets you focus on your code alone, and provides all the tooling to build libraries, "fat jar" binaries, run tests and manage your dependencies.
+`kb` follows the design philosophy behind compiler toolchains from modern languages such as Rust, Swift and Golang: make it simple, have as few knobs and twists as possible, and offer sensible defaults.
 
-Behind the scenes, kb essentially build and maintains a set of Gradle configurations for you.
+Java (and other JVM languages) have always been plagued by bulky, complex and multi-stage compiling processes. `kb` lets you focus on your code alone, and provides all the tooling to build libraries, "fat jar" binaries, run tests and manage your dependencies.
+
+Behind the scenes, `kb` build and maintains a set of Gradle configurations for you.
 
 
 ## Project structure conventions
 
-Every kb project requires code to be put on specific folder structures:
+Every `kb` project requires code to be put on specific folder structures:
 
 `project.yaml` - the (optional) config file where you define project dependencies, plugins, etc
 `src/main/<java, kotlin, resources>` - the folders where source must be located. Everything under resources will automatically be bundled.
@@ -82,7 +84,7 @@ main-class: "foo.bar.Main"
 ## Specifying dependencies
 The format of dependencies follow Gradle's convention of `<group>:<artifact>:<version>`
 
-You can also specify _source dependencies_ by pointing to folders that either follow the kb structure or contain a `project.yaml` file.
+You can also specify _source dependencies_ by pointing to folders that either follow the `kb` structure or contain a `project.yaml` file.
 
 ## Why can't I...
 There are no submodules. You can use source dependencies to have multiple projects in the same folder structure.
@@ -90,7 +92,7 @@ There are no "runtime dependencies". Bundle your JDBC drivers.
 
 
 ## Building kb
-kb itself is built using Gradle (I know, I know! It'll be built using kb itself, eventually). To build a distribution:
+`kb` itself is built using Gradle (I know, I know! It'll be built using `kb` itself, eventually ¯\_(ツ)_/¯). To build a distribution:
 
 ```
 gradle shadowJar
