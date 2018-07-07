@@ -23,39 +23,41 @@ Every `kb` project requires code to be put on specific folder structures:
 Creates the default folder structure and a `project.yaml` config file on the current folder or the folder specified by the `--root-path` param.
 
 Arguments:
-  `--language` - specify which languages the project contain. This will create a separate source folder per language specified. Supported values: java, kotlin
-  `--main-class` - specify the main class of the project. Omit if you're building a library or jar without a main class. You can also define this via the `project.yaml` file.
+- `--language` - specify which languages the project contain. This will create a separate source folder per language specified. Supported values: java, kotlin
+- `--main-class` - specify the main class of the project. Omit if you're building a library or jar without a main class. You can also define this via the `project.yaml` file.
 
 
 ### `kb build`
 Build a binary containing all sources on your project, and puts it (along with all dependency jars) on an `out` folder.
 
 Arguments:
-  `--fatjar` - build a fatjar. This will include all the dependencies in a single jar file. Ideal for distributing a binary with no external dependencies.
-  `--binary` - build a native binary. This requires GraalVM to be installed.
-  `--jar` - build a regular jar, with or without a main class (as per the `project.yaml` config.
+- `--fatjar` - build a fatjar. This will include all the dependencies in a single jar file. Ideal for distributing a binary with no external dependencies.
+- `--binary` - build a native binary. This requires GraalVM to be installed.
+- `--jar` - build a regular jar, with or without a main class (as per the `project.yaml` config.
 
 
 ### `kb run`
 Compiles and runs the main class of the project.
 
 Arguments:
-  `--app-args` - pass down parameters to the app as-is. Eg.: `--app-args "-foo=true -bar=false"`
-  `--jvm-args` - pass down these arguments to the JVM. Eg.: `--jvm-args "-server -Xms2G"`
+- `--app-args` - pass down parameters to the app as-is. Eg.: `--app-args "-foo=true -bar=false"`
+- `--jvm-args` - pass down these arguments to the JVM. Eg.: `--jvm-args "-server -Xms2G"`
 
 
 ### `kb deps`
 Manages dependencies. The following commands are available:
 
-  `--list` - list all current project dependencies
-  `--add` - add a dependency.
-  `--upgrade <group>:<project>` - upgrade a dependency to the latest available release
+- `--list` - list all current project dependencies (compile and test).
+- `--add` - add a dependency.
+- `--add-test` - add a test dependency.
+- `--upgrade <group>:<project>:<version?>` - upgrade a dependency to the latest available release (if version is not specified) or to a specific version (if specified).
+- `--upgrade-test <group>:<project>:<version?>` - upgrade a test dependency.
 
 
 ### `kb test`
 Run all tests on the test path. The following commands are available:
 
-  `--target` - run a single target. The format can be either a package (in which case all tests in that package will be ran - eg `com.foo`), a class file (`com.foo.BarTest`) or a specific test (`com.foo.BarTest:methodName`).
+- `--target` - run a single target. The format can be either a package (in which case all tests in that package will be ran - eg `com.foo`), a class file (`com.foo.BarTest`) or a specific test (`com.foo.BarTest:methodName`).
 
 
 ## The project.yaml file
@@ -87,13 +89,17 @@ The format of dependencies follow Gradle's convention of `<group>:<artifact>:<ve
 You can also specify _source dependencies_ by pointing to folders that either follow the `kb` structure or contain a `project.yaml` file.
 
 ## Why can't I...
-There are no submodules. You can use source dependencies to have multiple projects in the same folder structure.
-There are no "runtime dependencies". Bundle your JDBC drivers.
+- There are no submodules. You can use "source dependencies" to have multiple projects in the same folder structure.
+- There are no "runtime dependencies". Bundle your JDBC drivers.
 
 
 ## Building kb
-`kb` itself is built using Gradle (I know, I know! It'll be built using `kb` itself, eventually ¯\_(ツ)_/¯). To build a distribution:
+`kb` itself is built using Gradle (I know, I know! It'll be built using `kb` itself, eventually ¯\_(ツ)_/¯). To build from source:
 
 ```
-gradle shadowJar
+# build it
+gradle installDist
+
+# ln it to your local $PATH folder. Something like:
+sudo ln -s -F "$(pwd)/build/install/kb/bin/kb" /usr/local/bin/kb
 ```
