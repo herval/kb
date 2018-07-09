@@ -12,16 +12,13 @@ fun main(args: Array<String>) {
     val params = ArgsParser(args)
     try {
         when (params.command) {
-            Command.Init -> InitProject(params).run()
+            Command.Init -> {
+                InitProject(params).run()
+                syncProjectFile(params)
+            }
             Command.Help -> Help(params).print()
             else -> {
-                // resync build file for those
-                val projectConfig = ProjectConfig.parseWithOverrides(
-                        params,
-                        ProjectFileName,
-                        YamlParser()
-                )
-                GenerateBuildFiles(projectConfig).run()
+                val projectConfig = syncProjectFile(params)
 
                 when (params.command) {
                     Command.Build -> BuildApp(projectConfig, params).run()
@@ -36,4 +33,15 @@ fun main(args: Array<String>) {
     } catch (e: InvalidArgumentException) {
         println(e.message)
     }
+}
+
+fun syncProjectFile(params: ArgsParser): ProjectConfig {
+    // resync build file for those
+    val projectConfig = ProjectConfig.parseWithOverrides(
+            params,
+            ProjectFileName,
+            YamlParser()
+    )
+    GenerateBuildFiles(projectConfig).run()
+    return projectConfig
 }
