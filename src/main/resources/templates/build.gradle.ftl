@@ -52,6 +52,7 @@ version = '${version}'
 </#if>
 
 apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 <#if mainClass??>
 mainClassName = "${mainClass}"
@@ -86,6 +87,11 @@ dependencies {
     </#list>
 }
 
+shadowJar {
+    baseName = '${artifact}'
+    classifier = null
+    version = '${version}'
+}
 
 run {
     if (project.hasProperty('args')) {

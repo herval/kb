@@ -2,10 +2,7 @@ package kb
 
 import com.xenomachina.argparser.InvalidArgumentException
 import com.xenomachina.argparser.MissingRequiredPositionalArgumentException
-import kb.command.GenerateBuildFiles
-import kb.command.Help
-import kb.command.InitProject
-import kb.command.RunApp
+import kb.command.*
 import kb.config.ProjectConfig
 import kb.config.ProjectFileName
 import kb.config.YamlParser
@@ -27,7 +24,7 @@ fun main(args: Array<String>) {
                 GenerateBuildFiles(projectConfig).run()
 
                 when (params.command) {
-                    Command.Build -> TODO()
+                    Command.Build -> BuildApp(projectConfig, params).run()
                     Command.Deps -> TODO()
                     Command.Run -> RunApp(projectConfig).run()
                     Command.Test -> TODO()

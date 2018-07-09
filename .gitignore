@@ -10,3 +10,4 @@ gradlew.bat
 example/build.gradle
 example/gradle/wrapper/gradle-wrapper.jar
 example/gradle/wrapper/gradle-wrapper.properties
+example/settings.gradle

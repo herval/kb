@@ -44,6 +44,16 @@ class ArgsParser(args: Array<String>) {
             help = "Fully qualified name of the main class"
     ).default("")
 
+    val buildJar by parser.flagging(
+            "--jar",
+            help = "Build a regular jar"
+    ).default(true)
+
+    val buildFatJar by parser.flagging(
+            "--fatjar",
+            help = "Build a fat jar"
+    ).default(false)
+
     val languages by parser.adding(
             "--language",
             help = "Specify the programming languages used in the project. Supported values: ${Language.values().map { it.name.toLowerCase() }.joinToString(", ")}",

@@ -29,6 +29,7 @@ class GenerateBuildFiles(val config: ProjectConfig) {
                         "jvmArgs" to config.jvmArgs?.split(" ")?.map { "\"${it}\"" }?.joinToString(", "), // TODO do this concatenation on the freemarker code instead
                         "mainClass" to config.mainClass,
                         "version" to config.version,
+                        "artifact" to config.artifact,
                         "group" to config.group
                 ),
                 "build.gradle"
