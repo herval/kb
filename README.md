@@ -1,5 +1,5 @@
 # kb
-## An opinionated low-config compiler for Kotlin & Java
+## An opinionated low-config build wrapper for Kotlin & Java
 
 `kb` follows the design philosophy behind compiler toolchains from modern languages such as Rust, Swift and Golang: make it simple, have as few knobs and twists as possible, and offer sensible defaults.
 
