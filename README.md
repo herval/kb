@@ -18,7 +18,6 @@ Every `kb` project requires code to be put on specific folder structures:
 
 - `src/test/<java, kotlin, resources>` - the folders where tests must be located. Everything under resources will automatically be included on test runs.
 
-- `out` - the output folder for compiled binariesd
 
 ## Commands
 
