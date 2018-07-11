@@ -33,9 +33,9 @@ class InitProject(val params: ArgsParser) {
         if (projectFile.exists()) {
             println("project.yaml already exists, skipping...")
         } else {
-            println("project.yaml created!")
             val sample = this.javaClass.getResource("/project.yaml.example").readBytes()
             projectFile.writeBytes(sample)
+            println("project.yaml created!")
         }
     }
 

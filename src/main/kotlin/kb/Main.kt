@@ -28,6 +28,8 @@ fun main(args: Array<String>) {
                 }
             }
         }
+    } catch (e: IllegalStateException) {
+        println(e.message)
     } catch (e: MissingRequiredPositionalArgumentException) {
         println(e.message)
     } catch (e: InvalidArgumentException) {

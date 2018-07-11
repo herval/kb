@@ -29,6 +29,13 @@ class ArgsParser(args: Array<String>) {
             }
     )
 
+    val subcommand by parser.positional(
+            help = "Command to get help for",
+            transform = {
+                commands[this] ?: throw InvalidArgumentException("Unknown command: ${this}. Type kb help for options.")
+            }
+    ).default(Command.Help)
+
     val appArgs by parser.storing(
             "--app-args",
             help = "Args to be supplied to the app (space separated)"
