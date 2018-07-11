@@ -12,10 +12,13 @@ Behind the scenes, `kb` build and maintains a set of Gradle configurations for y
 
 Every `kb` project requires code to be put on specific folder structures:
 
-`project.yaml` - the (optional) config file where you define project dependencies, plugins, etc
-`src/main/<java, kotlin, resources>` - the folders where source must be located. Everything under resources will automatically be bundled.
-`src/test/<java, kotlin, resources>` - the folders where tests must be located. Everything under resources will automatically be included on test runs.
-`out` - the output folder for compiled binariesd
+- `project.yaml` - the (optional) config file where you define project dependencies, plugins, etc
+
+- `src/main/<java, kotlin, resources>` - the folders where source must be located. Everything under resources will automatically be bundled.
+
+- `src/test/<java, kotlin, resources>` - the folders where tests must be located. Everything under resources will automatically be included on test runs.
+
+- `out` - the output folder for compiled binariesd
 
 ## Commands
 
