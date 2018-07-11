@@ -37,28 +37,27 @@ class ArgsParser(args: Array<String>) {
     ).default(Command.Help)
 
     val appArgs by parser.storing(
-            "--app-args",
-            help = "Args to be supplied to the app (space separated)"
+            "--app-args"
     ).default("")
 
     val jvmArgs by parser.storing(
-            "--jvm-args",
-            help = "Args to be supplied to the JVM"
+            "--jvm-args"
     ).default("")
 
+    val list by parser.flagging(
+            "--list"
+    ).default(false)
+
     val mainClass by parser.storing(
-            "--main-class",
-            help = "Fully qualified name of the main class"
+            "--main-class"
     ).default("")
 
     val buildJar by parser.flagging(
-            "--jar",
-            help = "Build a regular jar"
+            "--jar"
     ).default(true)
 
     val buildFatJar by parser.flagging(
-            "--fatjar",
-            help = "Build a fat jar"
+            "--fatjar"
     ).default(false)
 
     val languages by parser.adding(

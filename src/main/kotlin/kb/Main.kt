@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
 
                 when (params.command) {
                     Command.Build -> BuildApp(projectConfig, params).run()
-                    Command.Deps -> TODO()
+                    Command.Deps -> DependenciesCmd(projectConfig, params).run()
                     Command.Run -> RunApp(projectConfig).run()
                     Command.Test -> TODO()
                 }

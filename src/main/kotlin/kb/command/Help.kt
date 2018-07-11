@@ -41,8 +41,8 @@ class Help(val args: ArgsParser) {
             |Compiles and runs the main class of the project.
             |
             |Arguments:
-            |   --app-args      pass down parameters to the app as-is. Eg.: --app-args "-foo=true -bar=false"
-            |   --jvm-args      pass down these arguments to the JVM. Eg.: --jvm-args "-server -Xms2G"
+            |   --app-args      pass down parameters to the app as-is, separated by spaces. Eg.: --app-args "-foo=true -bar=false"
+            |   --jvm-args      pass down these arguments to the JVM, separated by spaces. Eg.: --jvm-args "-server -Xms2G"
             """.trimMargin())
     }
 
